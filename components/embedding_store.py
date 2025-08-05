@@ -2,29 +2,31 @@
 
 import faiss
 import numpy as np
-import openai
-from typing import List, Tuple
+from typing import List
+from openai import OpenAI
 
-# Store embeddings + corresponding chunks
+client = OpenAI()  # Assumes OPENAI_API_KEY is set in your environment
+
+# Global variables
 index = None
 chunk_lookup = []
 
 EMBEDDING_MODEL = "text-embedding-3-small"
 
 def get_embedding(text: str) -> List[float]:
-    """Returns the embedding vector for a given text using OpenAI API."""
-    response = openai.Embedding.create(
+    """Returns the embedding vector for a given text using the new OpenAI API."""
+    response = client.embeddings.create(
         input=[text],
         model=EMBEDDING_MODEL
     )
-    return response['data'][0]['embedding']
+    return response.data[0].embedding
 
 
 def create_vector_store(chunks: List[str]):
     """Creates a FAISS index and stores chunk embeddings."""
     global index, chunk_lookup
 
-    chunk_lookup = chunks  # Store original chunks
+    chunk_lookup = chunks
 
     embeddings = [get_embedding(chunk) for chunk in chunks]
     vectors = np.array(embeddings).astype('float32')
