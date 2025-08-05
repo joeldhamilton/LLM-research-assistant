@@ -3,7 +3,7 @@ streamlit
 openai
 faiss-cpu         # Or chromadb if preferred
 PyMuPDF
-newspaper3k
+requests
 beautifulsoup4
 tqdm
 python-dotenv
