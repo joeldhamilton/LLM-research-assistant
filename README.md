@@ -78,7 +78,6 @@ This app is fully compatible with Streamlit Cloud:
 
 You may need to:
 - Add `OPENAI_API_KEY` to Streamlit Cloud’s Secrets manager
-- Remove `newspaper3k` from `requirements.txt` if still present
 
 ---
 
