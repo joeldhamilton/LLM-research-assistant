@@ -4,8 +4,12 @@ import faiss
 import numpy as np
 from typing import List
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
-client = OpenAI()  # Assumes OPENAI_API_KEY is set in your environment
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key)
 
 # Global variables
 index = None
