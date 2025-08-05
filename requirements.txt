@@ -1,5 +1,4 @@
 ### 📄 `requirements.txt`
-```txt
 streamlit
 openai
 faiss-cpu         # Or chromadb if preferred
