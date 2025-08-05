@@ -1,0 +1,14 @@
+
+---
+
+### 📄 `requirements.txt`
+```txt
+streamlit
+openai
+faiss-cpu         # Or chromadb if preferred
+PyMuPDF
+newspaper3k
+beautifulsoup4
+tqdm
+python-dotenv
+sentence-transformers
