@@ -17,3 +17,4 @@ data/uploaded_files/
 # Misc
 .DS_Store
 *.log
+.env
