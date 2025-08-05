@@ -22,3 +22,10 @@ Powered by Retrieval-Augmented Generation (RAG), vector embeddings, and OpenAI G
 git clone https://github.com/joeldhamilton/LLM-research-assistant
 cd LLM-research-assistant
 pip install -r requirements.txt
+
+### 🔐 Environment Setup
+
+Create a `.env` file in the project root with your OpenAI key:
+
+```env
+OPENAI_API_KEY=your_openai_key_here
