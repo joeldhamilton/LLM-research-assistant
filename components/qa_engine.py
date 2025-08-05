@@ -1,12 +1,14 @@
 # components/qa_engine.py
 
-import openai
+from openai import OpenAI
 import os
+from dotenv import load_dotenv
 from components.embedding_store import search_similar_chunks
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-LLM_MODEL = "gpt-4o"  # Or gpt-3.5-turbo if cost/speed matters
+LLM_MODEL = "gpt-4o"  # You can switch to gpt-3.5-turbo if preferred
 
 def answer_question(question: str, k: int = 3) -> str:
     """Answers a question based on top-k retrieved document chunks."""
@@ -14,14 +16,13 @@ def answer_question(question: str, k: int = 3) -> str:
     context = "\n\n".join(context_chunks)
 
     system_prompt = (
-        "You are an expert research assistant. "
-        "Answer questions using the context provided, staying concise and accurate. "
-        "If the answer isn’t in the context, say you don’t know."
+        "You are an expert research assistant. Answer questions using the context provided. "
+        "Be concise, accurate, and grounded in the document. If the answer is not found in the context, say you don't know."
     )
 
     user_prompt = f"""Context:\n{context}\n\nQuestion: {question}"""
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model=LLM_MODEL,
         messages=[
             {"role": "system", "content": system_prompt},
@@ -30,4 +31,4 @@ def answer_question(question: str, k: int = 3) -> str:
         temperature=0.2
     )
 
-    return response["choices"][0]["message"]["content"].strip()
+    return response.choices[0].message.content.strip()
